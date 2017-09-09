@@ -27,6 +27,21 @@ import cv2
 import numpy as np
 import json
 
+class_weighting = [
+ 0.2595,
+ 0.1826,
+ 4.5640,
+ 0.1417,
+ 0.5051,
+ 0.3826,
+ 9.6446,
+ 1.8418,
+ 6.6823,
+ 6.2478,
+ 3.0,
+ 7.3614
+]
+
 
 # load train data
 train_data = np.load('./data/train_data.npy')
@@ -34,6 +49,8 @@ train_label = np.load('./data/train_label.npy')
 
 test_data = np.load('./data/test_data.npy')
 test_label = np.load('./data/test_label.npy')
+
+print(train_label.shape)
 
 tiramisu = Tiramisu()
 model = tiramisu.model
@@ -48,7 +65,7 @@ def step_decay(epoch):
 lrate = LearningRateScheduler(step_decay)
 optimizer = Adam(lr=1e-3, decay=0.995)
 
-tiramisu.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["accuracy"])
 TensorBoard = callbacks.TensorBoard(log_dir='./logs', histogram_freq=5, write_graph=True, write_images=True)
 filepath="weights/prop_tiramisu_weights_67_12_func_10-e7_decay.best.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=2, save_best_only=True, save_weights_only=False, mode='max')
@@ -58,9 +75,9 @@ callbacks_list = [checkpoint]
 nb_epoch = 150
 batch_size = 2
 
-history = tiramisu.fit(train_data, train_label, batch_size=batch_size, epochs=nb_epoch, callbacks=callbacks_list, class_weight=class_weighting,verbose=1, validation_data=(test_data, test_label), shuffle=True)
+history = model.fit(train_data, train_label, batch_size=batch_size, epochs=nb_epoch, callbacks=callbacks_list, class_weight=class_weighting,verbose=1, validation_data=(test_data, test_label), shuffle=True)
 
-tiramisu.save_weights('weights/prop_tiramisu_weights_67_12_func_10-e7_decay{}.hdf5'.format(nb_epoch))
+model.save_weights('weights/prop_tiramisu_weights_67_12_func_10-e7_decay{}.hdf5'.format(nb_epoch))
 
 import matplotlib.pyplot as plt
 # list all data in history

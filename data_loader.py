@@ -24,15 +24,15 @@ test_data, test_label = load_data("test")
 val_data, val_label = load_data("val")
 
 train_data = np.transpose(train_data, (0, 2, 3, 1))
-train_label = np.transpose(train_label, (0, 2, 3, 1))
+train_label = np.transpose(train_label, (0, 3, 1, 2))
 
 test_data = np.transpose(test_data, (0, 2, 3, 1))
-test_label = np.transpose(test_label, (0, 2, 3, 1))
+test_label = np.transpose(test_label, (0, 3, 1, 2))
 
 val_data = np.transpose(val_data, (0, 2, 3, 1))
-val_label = np.transpose(val_label, (0, 2, 3, 1))
+val_label = np.transpose(val_label, (0, 3, 1, 2))
 
-
+print(train_data.shape)
 
 np.save("data/train_data", train_data)
 np.save("data/train_label", train_label)

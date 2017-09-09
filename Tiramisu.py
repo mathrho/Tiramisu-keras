@@ -81,3 +81,4 @@ class Tiramisu(object):
 #tiramisu = Tiramisu()
 #model = tiramisu.model
 #plot_model(model, to_file='model.pdf')
+#model.summary()
