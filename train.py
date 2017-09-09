@@ -55,6 +55,10 @@ print(train_label.shape)
 tiramisu = Tiramisu()
 model = tiramisu.model
 
+#with open('./weights/prop_tiramisu_weights_67_12_func_10-e7_decay.best.hdf5') as model_file:
+ #   model.load_weights(model_file, by_name=False)
+
+
 def step_decay(epoch):
     initial_lrate = 0.001
     drop = 0.00001
