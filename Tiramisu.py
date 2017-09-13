@@ -30,8 +30,8 @@ class Tiramisu(object):
 
                 t = Activation('relu')(t)
                 t = Conv2D(16, kernel_size=(3, 3), padding='same', kernel_initializer='he_uniform', data_format='channels_last')(t)
-                t = Dropout(0, 2)(t)
-                t = concatenate([t, tmp])
+                t = Dropout(0.2)(t)
+                #t = concatenate([t, tmp])
             skip_connections.append(t)
 
             t = BatchNormalization(mode=0, axis=1,
@@ -40,7 +40,7 @@ class Tiramisu(object):
             t = Activation('relu')(t)
             nb_features += growth_rate * layer_per_block[i]
             t = Conv2D(nb_features, kernel_size=(1, 1), padding='same', kernel_initializer='he_uniform', data_format='channels_last')(t)
-            t = Dropout(0, 2)(t)
+            t = Dropout(0.2)(t)
             t = MaxPooling2D(pool_size=(2, 2), strides=2, padding='same', data_format='channels_last')(t)
 
         for i in range(layer_per_block[5]):
@@ -51,8 +51,8 @@ class Tiramisu(object):
 
             t = Activation('relu')(t)
             t = Conv2D(16, kernel_size=(3, 3), padding='same', kernel_initializer='he_uniform', data_format='channels_last')(t)
-            t = Dropout(0, 2)(t)
-            t = concatenate([t, tmp])
+            t = Dropout(0.2)(t)
+            #t = concatenate([t, tmp])
 
         skip_connections = skip_connections[::-1]
 
@@ -61,7 +61,7 @@ class Tiramisu(object):
             t = Conv2DTranspose(keep_nb_features, strides=2, kernel_size=(3, 3), padding='same', data_format='channels_last')(t)
 
 
-            t = concatenate([t, skip_connections[i]])
+            #t = concatenate([t, skip_connections[i]])
             for j in range(layer_per_block[n_pool+i+1]):
                 tmp = t
                 t = BatchNormalization(mode=0, axis=1,
@@ -70,15 +70,15 @@ class Tiramisu(object):
 
                 t = Activation('relu')(t)
                 t = Conv2D(16, kernel_size=(3, 3), padding='same', kernel_initializer='he_uniform', data_format='channels_last')(t)
-                t = Dropout(0, 2)(t)
-                t = concatenate([t, tmp])
+                t = Dropout(0.2)(t)
+                #t = concatenate([t, tmp])
 
         t = Conv2D(12, kernel_size=(1, 1), padding='same', kernel_initializer='he_uniform', data_format='channels_last')(t)
         output_layer = Activation('softmax')(t)
         self.model = Model(inputs=input_layer, outputs=output_layer)
 
 
-#tiramisu = Tiramisu()
-#model = tiramisu.model
-#plot_model(model, to_file='model.pdf')
-#model.summary()
+tiramisu = Tiramisu()
+model = tiramisu.model
+plot_model(model, to_file='model.pdf')
+model.summary()

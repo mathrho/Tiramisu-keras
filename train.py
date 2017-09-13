@@ -47,8 +47,8 @@ class_weighting = [
 train_data = np.load('./data/train_data.npy')
 train_label = np.load('./data/train_label.npy')
 
-test_data = np.load('./data/test_data.npy')
-test_label = np.load('./data/test_label.npy')
+test_data = np.load('./data/val_data.npy')
+test_label = np.load('./data/val_label.npy')
 
 print(train_label.shape)
 
@@ -67,7 +67,8 @@ def step_decay(epoch):
     return lrate
 
 lrate = LearningRateScheduler(step_decay)
-optimizer = Adam(lr=1e-3, decay=0.995)
+optimizer = SGD(lr=0.01)
+#optimizer = Adam(lr=1e-3, decay=0.995)
 
 model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["accuracy"])
 TensorBoard = callbacks.TensorBoard(log_dir='./logs', histogram_freq=5, write_graph=True, write_images=True)
@@ -77,7 +78,7 @@ checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=2, save_best_o
 callbacks_list = [checkpoint]
 
 nb_epoch = 150
-batch_size = 2
+batch_size = 1
 
 history = model.fit(train_data, train_label, batch_size=batch_size, epochs=nb_epoch, callbacks=callbacks_list, class_weight=class_weighting,verbose=1, validation_data=(test_data, test_label), shuffle=True)
 

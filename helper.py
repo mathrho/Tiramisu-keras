@@ -15,6 +15,10 @@ def normalized(rgb):
     norm[:,:,0]= b / 255.0
     norm[:,:,1]= g /225.0
     norm[:,:,2]= r /255.0
+    mean = norm.mean()
+    std = norm.std()
+    norm -= mean
+    norm /= std
 
     return norm
 
