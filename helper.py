@@ -4,17 +4,20 @@ import numpy as np
 from helper import *
 import os
 
+"""
+Preprocessing images helpers
+"""
+
 def normalized(rgb):
-    #return rgb/255.0
     norm=np.zeros((rgb.shape[0], rgb.shape[1], 3),np.float32)
 
     b=rgb[:,:,0]
     g=rgb[:,:,1]
     r=rgb[:,:,2]
 
-    norm[:,:,0]= b / 255.0
-    norm[:,:,1]= g /225.0
-    norm[:,:,2]= r /255.0
+    norm[:,:,0]= b
+    norm[:,:,1]= g
+    norm[:,:,2]= r
     mean = norm.mean()
     std = norm.std()
     norm -= mean
