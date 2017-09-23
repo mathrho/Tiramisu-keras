@@ -6,6 +6,8 @@ from keras.layers import Input, merge
 from keras.regularizers import l2
 from keras.models import Model
 from keras import regularizers
+import tensorflow as tf
+from keras.backend import tensorflow_backend
 
 from keras.models import Model
 from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, UpSampling2D
@@ -21,6 +23,10 @@ from keras.layers.normalization import BatchNormalization
 
 from keras.layers import Conv2D, Conv2DTranspose
 
+
+config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
+session = tf.Session(config=config)
+tensorflow_backend.set_session(session)
 K.set_image_dim_ordering('tf')
 
 import cv2
