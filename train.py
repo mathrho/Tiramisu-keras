@@ -56,10 +56,9 @@ train_label = np.load('./data/train_label.npy')
 test_data = np.load('./data/val_data.npy')
 test_label = np.load('./data/val_label.npy')
 
-print(train_label.shape)
 
-tiramisu = Tiramisu()
-model = tiramisu.model
+layer_per_block = [4, 5, 7, 10, 12, 15, 12, 10, 7, 5, 4]
+model = Tiramisu(layer_per_block)
 
 #with open('./weights/prop_tiramisu_weights_67_12_func_10-e7_decay.best.hdf5') as model_file:
  #   model.load_weights(model_file, by_name=False)
