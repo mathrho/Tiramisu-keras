@@ -22,4 +22,4 @@ python train.py
 
 
 ## Test
-soon available
+You can check the result on the Tiramisu_test jupyter file. 
