@@ -48,7 +48,7 @@ def evaluate(input_size, nb_classes):
     model.load_weights('weights/prop_tiramisu_weights_67_12_func_10-e7_decay150.hdf5')
 
     test_data = np.load('./data/test_data.npy')
-    test_label = np.load('./data/test_label.npy')
+    test_label = np.load('./data/test_label.npy').astype(int)
     assert(test_data.shape[0] == test_label.shape[0])
 
     test_pred = np.zeros(test_label.shape[0:3], dtype=float)
