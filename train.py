@@ -1,3 +1,4 @@
+import cv2
 import tensorflow as tf
 from Tiramisu import Tiramisu
 from keras.callbacks import LearningRateScheduler
@@ -29,7 +30,6 @@ session = tf.Session(config=config)
 tensorflow_backend.set_session(session)
 K.set_image_dim_ordering('tf')
 
-import cv2
 import numpy as np
 import json
 
