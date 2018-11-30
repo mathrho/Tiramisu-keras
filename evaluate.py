@@ -58,7 +58,7 @@ def evaluate(input_size, nb_classes):
         test_pred[i] = pred
     
     np.save("results/test_pred", test_pred)
-    conf_m, IOU, meanIOU = calculate_iou(nb_classes, np.argmax(test_label, axis=-1), test_pred)
+    conf_m, IOU, meanIOU = calculate_iou(nb_classes, np.argmax(test_label, axis=-1).astype(int), test_pred)
     print('IOU: ')
     print(IOU)
     print('meanIOU: %f' % meanIOU)
