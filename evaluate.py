@@ -45,7 +45,7 @@ def evaluate(input_size, nb_classes):
     layer_per_block = [4, 5, 7, 10, 12, 15, 12, 10, 7, 5, 4]
     model = Tiramisu(layer_per_block)
 
-    model.load_weights('weights/prop_tiramisu_weights_67_12_func_10-e7_decay150.hdf5')
+    model.load_weights('weights/prop_tiramisu_weights_67_12_func_10-e7_decay.best.hdf5')
 
     test_data = np.load('./data/test_data.npy')
     test_label = np.load('./data/test_label.npy')
