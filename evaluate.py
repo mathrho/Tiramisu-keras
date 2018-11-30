@@ -48,10 +48,10 @@ def evaluate(input_size, nb_classes):
     model.load_weights('weights/prop_tiramisu_weights_67_12_func_10-e7_decay150.hdf5')
 
     test_data = np.load('./data/test_data.npy')
-    test_label = np.load('./data/test_label.npy').astype(int)
+    test_label = np.load('./data/test_label.npy')
     assert(test_data.shape[0] == test_label.shape[0])
 
-    test_pred = np.zeros(test_label.shape[0:3], dtype=float)
+    test_pred = np.zeros(test_label.shape[0:3], dtype=int)
     for i in range(test_data.shape[0]):
         pred = model.predict(test_data[i:i+1])
         pred = np.argmax(np.squeeze(pred), axis=-1).astype(int)
