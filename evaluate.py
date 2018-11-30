@@ -1,6 +1,7 @@
 from Tiramisu import Tiramisu
 import numpy as np
-
+import argparse
+import os
 
 def calculate_iou(nb_classes, labels, predictions):
     conf_m = np.zeros((nb_classes, nb_classes), dtype=float)
@@ -56,7 +57,7 @@ def evaluate(input_size, nb_classes):
         pred = np.argmax(np.squeeze(pred), axis=-1).astype(int)
         test_pred[i] = pred
     
-    np.save("result/test_pred", test_pred)
+    np.save("results/test_pred", test_pred)
     conf_m, IOU, meanIOU = calculate_iou(nb_classes, test_label, test_pred)
     print('IOU: ')
     print(IOU)
@@ -66,20 +67,14 @@ def evaluate(input_size, nb_classes):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input_dim', type=int, default=473)
+    parser.add_argument('--input_dim', type=int, default=224)
     parser.add_argument('--classes', type=int, default=2)
-    parser.add_argument('--resnet_layers', type=int, default=50)
-    parser.add_argument('--batch', type=int, default=2)
-    parser.add_argument('--datadir', type=str, required=True)
-    parser.add_argument('--savedir', type=str)
     parser.add_argument('--weights', type=str, default=None)
-    parser.add_argument('-m', '--model', type=str, default='pspnet50_ade20k')
     parser.add_argument('--gpu', type=int, default=0)
-    parser.add_argument('--sep', default=').')
     args = parser.parse_args()
 
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
 
-    evaluate((350, 350), args.classes)
+    evaluate((224, 224), args.classes)
 
 
