@@ -1,3 +1,4 @@
+import tensorflow as tf
 from Tiramisu import Tiramisu
 from keras.callbacks import LearningRateScheduler
 from keras.optimizers import RMSprop, Adam, SGD
@@ -6,7 +7,6 @@ from keras.layers import Input, merge
 from keras.regularizers import l2
 from keras.models import Model
 from keras import regularizers
-import tensorflow as tf
 from keras.backend import tensorflow_backend
 
 from keras.models import Model
