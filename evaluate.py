@@ -51,14 +51,14 @@ def evaluate(input_size, nb_classes):
     test_label = np.load('./data/test_label.npy')
     assert(test_data.shape[0] == test_label.shape[0])
 
-    test_pred = np.zeros(test_label.shape, dtype=float)
+    test_pred = np.zeros(test_label.shape[0:3], dtype=float)
     for i in range(test_data.shape[0]):
         pred = model.predict(test_data[i:i+1])
         pred = np.argmax(np.squeeze(pred), axis=-1).astype(int)
         test_pred[i] = pred
     
     np.save("results/test_pred", test_pred)
-    conf_m, IOU, meanIOU = calculate_iou(nb_classes, test_label, test_pred)
+    conf_m, IOU, meanIOU = calculate_iou(nb_classes, np.argmax(test_label, axis=-1), test_pred)
     print('IOU: ')
     print(IOU)
     print('meanIOU: %f' % meanIOU)
