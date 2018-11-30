@@ -24,13 +24,13 @@ from keras.layers.normalization import BatchNormalization
 
 from keras.layers import Conv2D, Conv2DTranspose
 
-
+#import os
 config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
 session = tf.Session(config=config)
 tensorflow_backend.set_session(session)
 K.set_image_dim_ordering('tf')
+#os.environ['CUDA_VISIBLE_DEVICES'] = str(0)
 
-import os
 import numpy as np
 import json
 
@@ -56,8 +56,6 @@ train_label = np.load('./data/train_label.npy')
 
 test_data = np.load('./data/val_data.npy')
 test_label = np.load('./data/val_label.npy')
-
-os.environ['CUDA_VISIBLE_DEVICES'] = str(0)
 
 layer_per_block = [4, 5, 7, 10, 12, 15, 12, 10, 7, 5, 4]
 model = Tiramisu(layer_per_block)
