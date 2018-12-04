@@ -45,9 +45,12 @@ test_label = np.transpose(test_label, (0, 1, 2, 3))
 val_data = np.transpose(val_data, (0, 2, 3, 1))
 val_label = np.transpose(val_label, (0, 1, 2, 3))
 
-print train_data.shape, train_label.shape
-print test_data.shape, test_label.shape
-print val_data.shape, val_label.shape
+print(train_data.shape)
+print(train_label.shape)
+print(test_data.shape)
+print(test_label.shape)
+print(val_data.shape)
+print(val_label.shape)
 
 
 np.save("data/train_data", train_data)
