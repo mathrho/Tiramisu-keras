@@ -80,7 +80,7 @@ optimizer = RMSprop(lr=1e-3, decay=1-0.995)
 
 model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["accuracy"])
 logging = TensorBoard(log_dir='./logging', histogram_freq=5, write_graph=True, write_images=True)
-filepath="weights" + "ep{epoch:03d}-loss{loss:.3f}-val_loss{val_loss:.3f}.h5"
+filepath="weights/" + "ep{epoch:03d}-loss{loss:.3f}-val_loss{val_loss:.3f}.h5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=2, save_best_only=True, save_weights_only=False, mode='max')
 early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=150, verbose=1, mode='auto')
 
