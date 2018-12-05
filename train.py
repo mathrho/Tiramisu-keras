@@ -25,6 +25,8 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers import Conv2D, Conv2DTranspose
 
 import os
+gpu0 = 0
+os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu0)
 config = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
 session = tf.Session(config=config)
 tensorflow_backend.set_session(session)
@@ -48,8 +50,6 @@ class_weighting = [
  7.3614
 ]
 
-gpu0 = 0
-os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu0)
 
 # load train data
 train_data = np.load('./data/train_data.npy')
